@@ -1,3 +1,10 @@
+.settings/*
+target/*
+.project
+.classpath
+.idea/*
+
+
 *.class
 
 # Package Files #
