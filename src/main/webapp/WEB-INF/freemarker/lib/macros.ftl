@@ -1,6 +1,6 @@
 <#macro formInput form path required=false type="text" showErrors=true containerClass="" labelClass="">
 <@spring.bind path="${form}.${path}" />
-<div class="${containerClass} ${getErrorsClass()}}">
+<div class="${containerClass} ${getErrorsClass()}">
 	<label for="${path?replace(".","_")}" class="${labelClass} <#if required==true>required</#if>"><@spring.message code="${form}.${path}.label"/> <#if required==true><span>*</span></#if> </label>
 	<@input id=path name=spring.status.expression type=type/>
 	${printErrors(showErrors)}
@@ -13,16 +13,21 @@
 
 <#macro checkbox form path required=false showErrors=true containerClass="" value="true">
 <@spring.bind path="${form}.${path}" />
-<dl class="${containerClass}">
-	<dt><label for="${path?replace(".","_")}"><@spring.message code="${form}.${path}.label"/> <#if required==true>*</#if> </label></dt>
-	<dd>
-	   	<#assign checked>
-        	<#if spring.status.value?? && spring.status.value = value>checked="checked"</#if>
-    	</#assign>
-		<input type="checkbox" name="${spring.status.expression}"  id="${path?replace(".","_")}" value="${value?trim}" ${checked}}/>
-		<input type="hidden" name="_${spring.status.expression}"/>
-		${printErrors(showErrors)}
-	</dd>
+<div class="${containerClass}  ${getErrorsClass()}">
+	<ul class="idealcheck">
+		<li>
+			<label for="${path?replace(".","_")}">
+			   	<#assign checked>
+		        	<#if spring.status.value?? && spring.status.value = value>checked="checked"</#if>
+		    	</#assign>
+				<input type="checkbox" name="${spring.status.expression}"  id="${path?replace(".","_")}" value="${value?trim}" ${checked}/>
+				<input type="hidden" name="_${spring.status.expression}"/>
+				<@spring.message code="${form}.${path}.label"/> <#if required==true>*</#if>
+				${printErrors(showErrors)}
+				
+			</label>
+		<li>
+	</ul>
 </dl>
 </#macro>
 

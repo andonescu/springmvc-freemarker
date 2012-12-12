@@ -27,7 +27,7 @@ p {
 }
 
 #myform {
-	width: 500px;
+	width: 650px;
 	margin : 8px auto;
 }
 
@@ -538,4 +538,20 @@ a.aw,dl.aw {
 .clearfix:before,.clearfix:after {
 	content: "";
 	display: table;
+}
+
+span.error {
+	color: red;
+	font-weight: bold;
+	vertical-align: top;
+	padding-right: 1em;
+	border: none !important;
+	background: none !important;
+	width: 100% !important;
+	
+	
+}
+
+.clear {
+	clear: both;
 }

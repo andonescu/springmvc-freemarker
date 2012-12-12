@@ -3,6 +3,10 @@
  */
 package ro.andonescu.demos.springmvcfreemarker.webforms;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.validation.BindingResult;
 
 /**
@@ -15,10 +19,19 @@ public class ContactForm extends AbstractForm {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@NotEmpty
+	@Size(min = 5, max = 50)
 	private String firstName;
+	@NotEmpty
+	@Size(min = 5, max = 50)
 	private String lastName;
+	@NotEmpty
+	@Size(min = 7, max = 50)
 	private String password;
+	@Email
+	@NotEmpty
 	private String email;
+	@NotEmpty
 	private String state;
 	
 	/* (non-Javadoc)
@@ -69,7 +82,4 @@ public class ContactForm extends AbstractForm {
 	public void setState(String state) {
 		this.state = state;
 	}
-	
-	
-
 }

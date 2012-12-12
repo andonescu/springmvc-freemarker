@@ -32,7 +32,7 @@
 				<div class="error">
 					<label class="required">Password:</label>
 					<input type="password" size="40"/>
-					<label class="error"> Add some info! </label>
+					<span class="error"> Add some info! </span>
 				</div>
 				
 				<div>
@@ -49,7 +49,7 @@
 						<option>Constanta</option>
 						<option>Iasi</option>								
 					</select>
-					<label class="error"> Add some info! </label>
+					<span class="error"> Add some info! </span>
 				</div>
 	
 				
