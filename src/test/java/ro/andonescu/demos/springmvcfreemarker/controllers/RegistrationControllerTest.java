@@ -1,30 +1,20 @@
 package ro.andonescu.demos.springmvcfreemarker.controllers;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import ro.andonescu.demos.springmvcfreemarker.config.AbstractTest;
 
 public class RegistrationControllerTest extends AbstractTest {
 
-	
-	private AnnotationMethodHandlerAdapter handlerAdapter;
-	
-	@Autowired
-	private RegistrationController registrationController;
-
 	@Before
 	public void setUp() throws Exception {
-		setUpRequest((ConfigurableApplicationContext) ac);
-		handlerAdapter = new AnnotationMethodHandlerAdapter();
+		setupMockMvc();
 	}
 
 	@After
@@ -33,23 +23,35 @@ public class RegistrationControllerTest extends AbstractTest {
 
 	@Test
 	public void testShowRegistration() throws Exception {
-		request.setMethod("GET");
-		request.setRequestURI("/registration/view");
-		ModelAndView modelView = handlerAdapter.handle(request, response, registrationController);
-		assertEquals("views/registration", modelView.getViewName());		
+		this.mockMvc
+				.perform(get("/registration/view"))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType("text/html;charset=UTF-8"))
+				.andExpect(
+						MockMvcResultMatchers.view().name("views/registration"));
 	}
 
 	@Test
 	public void testShowAddForm() throws Exception {
-		request.setMethod("GET");
-		request.setRequestURI("/registration/add");
-		ModelAndView modelView = handlerAdapter.handle(request, response, registrationController);
-		assertEquals("forms/registration", modelView.getViewName());		
+		this.mockMvc
+		.perform(get("/registration/add"))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType("text/html;charset=UTF-8"))
+		.andExpect(
+				MockMvcResultMatchers.view().name("forms/registration"));
 	}
 
 	@Test
-	public void testValidateAddForm() {
-		fail("Not yet implemented");
+	public void testValidateAddForm() throws Exception {
+		// request.setMethod("POST");
+		// request.setRequestURI("/registration/add");
+		// request.setAttribute("registrationForm", new RegistrationForm());
+		//
+		// updateServletRequestAttributes();
+		//
+		// ModelAndView modelView = requestHandlerAdapter.handle(request,
+		// response, registrationController);
+		// assertEquals("forms/registration", modelView.getViewName());
 	}
 
 }

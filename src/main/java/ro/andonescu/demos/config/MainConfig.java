@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ro.andonescu.demos.springmvcfreemarker.config;
+package ro.andonescu.demos.config;
 
 import javax.inject.Inject;
 

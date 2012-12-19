@@ -1,4 +1,4 @@
-package ro.andonescu.demos.springmvcfreemarker.config;
+package ro.andonescu.demos.config;
 
 import java.util.Locale;
 import java.util.Properties;
@@ -12,7 +12,6 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.FixedLocaleResolver;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfig;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
@@ -21,7 +20,7 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan("ro.andonescu.demos.springmvcfreemarker.controllers")
-public class ConfigMVC extends WebMvcConfigurerAdapter {
+public class ConfigMVC {
 
 	@Bean
 	public LocaleResolver LogetLocalResolver() {
@@ -67,7 +66,7 @@ public class ConfigMVC extends WebMvcConfigurerAdapter {
 		return messageSource;
 	}
 
-	@Override
+
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations(
 				"/resources/");
