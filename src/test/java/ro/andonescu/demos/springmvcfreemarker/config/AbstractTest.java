@@ -3,6 +3,7 @@
  */
 package ro.andonescu.demos.springmvcfreemarker.config;
 
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -29,7 +30,8 @@ public abstract class AbstractTest {
 
 	protected MockMvc mockMvc;
 
-	protected void setupMockMvc() {
+	@Before
+	public void setup() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 	}
 }
