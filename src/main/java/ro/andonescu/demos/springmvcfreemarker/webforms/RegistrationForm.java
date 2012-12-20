@@ -12,9 +12,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.BindingResult;
 
 import ro.andonescu.demos.springmvcfreemarker.util.AgeVerification;
+import ro.andonescu.demos.springmvcfreemarker.util.DateUtil;
 
-//@ScriptAssert(lang = "javascript", script = "_this.password.trim().length() == 0 || _this.password ==_this.passwordConf", message = "Passwords do Not Match!")
-public class RegistrationForm  extends AbstractForm{
+// @ScriptAssert(lang = "javascript", script =
+// "_this.password.trim().length() == 0 || _this.password ==_this.passwordConf",
+// message = "Passwords do Not Match!")
+public class RegistrationForm extends AbstractForm {
 
 	/**
 	 * 
@@ -22,36 +25,36 @@ public class RegistrationForm  extends AbstractForm{
 	private static final long serialVersionUID = 1L;
 	@Email
 	@NotEmpty
-	private String email;	
+	private String email;
 	@NotEmpty
 	private String password;
 	@NotEmpty
 	private String passwordConf;
-	
+
 	@NotEmpty
 	private String lastName;
 	@NotEmpty
 	private String firstName;
-	
+
 	@NotNull
 	@AgeVerification
-	@DateTimeFormat(pattern = "dd.MM.yyyy")
+	@DateTimeFormat(pattern = DateUtil.DEFAULT_DATE_FORMAT)
 	private Date birthDate;
-	
+
 	@NotEmpty
 	private String address;
 	@NotEmpty
 	private String city;
 	@NotEmpty
 	private String county;
-	
+
 	@AssertTrue
 	private Boolean agreement;
-	
+
 	@Override
 	public void additionalVerification(BindingResult bindingResult) {
-		if (StringUtils.isNotBlank(password) && StringUtils.isNotBlank(passwordConf)){
-			if (password.compareTo(passwordConf) != 0){
+		if (StringUtils.isNotBlank(password) && StringUtils.isNotBlank(passwordConf)) {
+			if (password.compareTo(passwordConf) != 0) {
 				bindingResult.rejectValue("passwordConf", "passwordsDontMatch");
 			}
 		}
@@ -140,14 +143,14 @@ public class RegistrationForm  extends AbstractForm{
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("RegistrationForm [email=").append(email)
-				.append(", password=").append(password)
-				.append(", passwordConf=").append(passwordConf)
-				.append(", lastName=").append(lastName).append(", firstName=")
-				.append(firstName).append(", birthDate=").append(birthDate)
-				.append(", address=").append(address).append(", city=")
-				.append(city).append(", county=").append(county)
+		builder.append("RegistrationForm [email=").append(email).append(", password=").append(password)
+				.append(", passwordConf=").append(passwordConf).append(", lastName=").append(lastName)
+				.append(", firstName=").append(firstName).append(", birthDate=").append(birthDate).append(", address=")
+				.append(address).append(", city=").append(city).append(", county=").append(county)
 				.append(", agreement=").append(agreement).append("]");
 		return builder.toString();
 	}
+
+	
+
 }
