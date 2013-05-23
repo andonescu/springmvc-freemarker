@@ -6,10 +6,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.util.List;
+import java.util.Map.Entry;
+
 import org.joda.time.DateTime;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 
 import ro.andonescu.demos.springmvcfreemarker.config.AbstractTest;
 import ro.andonescu.demos.springmvcfreemarker.util.TestUtil;
@@ -42,9 +51,25 @@ public class RegistrationControllerTest extends AbstractTest {
 
 	@Test
 	public void testValidateAddForm_withErrors() throws Exception {
-		this.mockMvc.perform(TestUtil.postWithData("/registration/add", getRegistrationForm(false)))
+		MvcResult mvcResult = this.mockMvc
+				.perform(TestUtil.postWithData("/registration/add", getRegistrationForm(false)))
 				.andExpect(status().isOk()).andExpect(content().contentType("text/html;charset=UTF-8"))
-				.andExpect(view().name("forms/registration")).andExpect(model().hasErrors());
+				.andExpect(view().name("forms/registration")).andExpect(model().hasErrors()).andReturn();
+
+		BeanPropertyBindingResult errors = (BeanPropertyBindingResult) mvcResult.getModelAndView().getModel()
+				.get("org.springframework.validation.BindingResult.registrationForm");
+
+		/**
+		 * we receive only a single error and we validate the field name
+		 */
+
+		Assert.assertTrue(errors.getAllErrors().size() == 1);
+
+		for (ObjectError error : errors.getAllErrors()) {
+			FieldError fieldError = (FieldError) error;
+			Assert.assertEquals("agreement", fieldError.getField());
+		}
+
 	}
 
 	@Test
