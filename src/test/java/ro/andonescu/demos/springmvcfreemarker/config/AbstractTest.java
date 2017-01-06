@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package ro.andonescu.demos.springmvcfreemarker.config;
 
@@ -13,25 +13,21 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-/**
- * @author iandonescu
- * 
- */
+import ro.andonescu.demos.config.ConfigMVC;
+import ro.andonescu.demos.config.MainConfig;
+
 @RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { MainConfig.class, ConfigMVC.class })
 @WebAppConfiguration
-@ContextConfiguration("classpath:servlet-context.xml")
-// @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes =
-// {
-// MainConfig.class, ConfigMVC.class })
 public abstract class AbstractTest {
 
-	@Autowired
-	private WebApplicationContext wac;
+    @Autowired
+    private WebApplicationContext wac;
 
-	protected MockMvc mockMvc;
+    protected MockMvc mockMvc;
 
-	@Before
-	public void setup() {
-		mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-	}
+    @Before
+    public void setup() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+    }
 }
