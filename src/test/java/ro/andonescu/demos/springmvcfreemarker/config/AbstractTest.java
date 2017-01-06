@@ -1,45 +1,33 @@
 /**
- * 
+ *
  */
 package ro.andonescu.demos.springmvcfreemarker.config;
 
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.context.request.SessionScope;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
-/**
- * @author iandonescu
- * 
- */
+import ro.andonescu.demos.config.ConfigMVC;
+import ro.andonescu.demos.config.MainConfig;
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {
-		MainConfig.class, SessionConfig.class})
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
-@ActiveProfiles("testing")
+@ContextConfiguration(classes = { MainConfig.class, ConfigMVC.class })
+@WebAppConfiguration
 public abstract class AbstractTest {
-	@Autowired
-	protected ApplicationContext ac;
 
-	protected MockHttpServletRequest request;
-	protected MockHttpServletResponse response;
+    @Autowired
+    private WebApplicationContext wac;
 
-	protected void setUpRequest(ConfigurableApplicationContext context) {
-		context.getBeanFactory().registerScope("session", new SessionScope());
-		request = new MockHttpServletRequest();
-		ServletRequestAttributes attributes = new ServletRequestAttributes(request);
-		RequestContextHolder.setRequestAttributes(attributes);
-	}
+    protected MockMvc mockMvc;
 
+    @Before
+    public void setup() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+    }
 }

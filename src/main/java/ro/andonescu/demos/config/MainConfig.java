@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ro.andonescu.demos.springmvcfreemarker.config;
+package ro.andonescu.demos.config;
 
 import javax.inject.Inject;
 
@@ -14,10 +14,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 
-/**
- * @author iandonescu
- * 
- */
 @Configuration
 @ComponentScan(basePackages = "ro.andonescu.demos.springmvcfreemarker", excludeFilters = { @ComponentScan.Filter(Configuration.class) })
 @PropertySource(name = "appProps", value = { "classpath:app.properties"})
