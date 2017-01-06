@@ -24,11 +24,10 @@
 				<input type="hidden" name="_${spring.status.expression}"/>
 				<@spring.message code="${form}.${path}.label"/> <#if required==true>*</#if>
 				${printErrors(showErrors)}
-				
 			</label>
-		<li>
+		</li>
 	</ul>
-</dl>
+</div>
 </#macro>
 
 <#macro formSelect form path values required=false showErrors=true containerClass="" labelClass="">

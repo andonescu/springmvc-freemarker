@@ -19,9 +19,7 @@
 		<@tags.formSelect form="registrationForm" path="county" values=dataService.counties required=true  />
 		
 		<@tags.checkbox form="registrationForm" path="agreement"  containerClass="fullWidth" required=true/>
-		
-	
-		
+
 		<div>
 				<label class="main-label" style="width: 91px;">&nbsp;</label>
 				<input type="submit" value="Submit">
