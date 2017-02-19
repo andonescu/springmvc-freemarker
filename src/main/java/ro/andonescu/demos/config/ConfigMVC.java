@@ -1,8 +1,6 @@
 package ro.andonescu.demos.config;
 
-import java.util.Locale;
-import java.util.Properties;
-
+import org.apache.commons.io.FileUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -10,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -20,13 +20,16 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfig;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
+import java.util.Locale;
+import java.util.Properties;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan("ro.andonescu.demos.springmvcfreemarker.controllers")
 public class ConfigMVC extends WebMvcConfigurerAdapter {
 
     @Bean
-    public LocaleResolver LogetLocalResolver() {
+    public LocaleResolver getLocalResolver() {
         return new FixedLocaleResolver(new Locale("ro"));
     }
 
@@ -76,5 +79,13 @@ public class ConfigMVC extends WebMvcConfigurerAdapter {
     @Override
     public Validator getValidator() {
         return new LocalValidatorFactoryBean();
+    }
+
+    @Bean
+    public MultipartResolver multipartResolver() {
+        CommonsMultipartResolver mr = new CommonsMultipartResolver();
+        mr.setMaxUploadSizePerFile(10 * FileUtils.ONE_MB);
+
+        return mr;
     }
 }

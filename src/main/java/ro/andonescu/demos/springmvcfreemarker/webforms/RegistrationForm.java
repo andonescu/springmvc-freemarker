@@ -150,7 +150,4 @@ public class RegistrationForm extends AbstractForm {
 				.append(", agreement=").append(agreement).append("]");
 		return builder.toString();
 	}
-
-	
-
 }

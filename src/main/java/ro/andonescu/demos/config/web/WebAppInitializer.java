@@ -11,7 +11,7 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-public class WebAppInitiliazer implements WebApplicationInitializer {
+public class WebAppInitializer implements WebApplicationInitializer {
 
 	public void onStartup(ServletContext servletContext)
 			throws ServletException {
@@ -22,9 +22,9 @@ public class WebAppInitiliazer implements WebApplicationInitializer {
 		// Manages the lifecycle of the root application context
 		servletContext.addListener(new ContextLoaderListener(root));
 
-		ServletRegistration.Dynamic appServlet = servletContext.addServlet(
-				"appServlet", new DispatcherServlet(root));
+		ServletRegistration.Dynamic appServlet = servletContext.addServlet("appServlet", new DispatcherServlet(root));
 		appServlet.setLoadOnStartup(1);
+
 		Set<String> mappingConflicts = appServlet.addMapping("/");
 		if (!mappingConflicts.isEmpty()) {
 			throw new IllegalStateException(
